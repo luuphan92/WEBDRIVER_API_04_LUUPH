@@ -17,12 +17,12 @@ public class Topic_02_TextboxDropdown {
 	@BeforeClass
 	public void beforeClass() {
 		
-		//Firefox <=47 + selenium
-		driver = new FirefoxDriver();
-		
-		//Firefox >=48 + selenium
-		System.setProperty("webdriver.gecko.driver",".\\driver\\geckodriver.exe" );
-		driver = new ChromeDriver();
+//		//Firefox <=47 + selenium
+//		driver = new FirefoxDriver();
+//		
+//		//Firefox >=48 + selenium
+//		System.setProperty("webdriver.gecko.driver",".\\driver\\geckodriver.exe" );
+//		driver = new ChromeDriver();
 		
 		//Chrome
 		System.setProperty("webdriver.chrome.driver",".\\driver\\chromedriver.exe" );
