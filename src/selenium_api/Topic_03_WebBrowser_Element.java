@@ -6,7 +6,7 @@ import java.util.concurrent.TimeUnit;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -17,16 +17,16 @@ public class Topic_03_WebBrowser_Element {
 
 	@BeforeClass
 	public void beforeClass() {
-//		//Firefox <47
-//		driver = new FirefoxDriver();
-//		
+		//Firefox <47
+		driver = new FirefoxDriver();
+		
 //		//Firefox >= 48
 //		System.setProperty("webdriver.Firefox.driver",".\\driver\\geckodriver.exe");
 //		driver = new FirefoxDriver();
-//		
-		//Chrome
-		System.setProperty("webdriver.chrome.driver",".\\driver\\chromedriver.exe" );
-		driver = new ChromeDriver();
+		
+//		//Chrome
+//		System.setProperty("webdriver.chrome.driver",".\\driver\\chromedriver.exe" );
+//		driver = new ChromeDriver();
 		
 //		//IE
 //		System.setProperty("webdriver.IE.driver",".\\driver\\IEDriverServer.exe");
@@ -162,16 +162,16 @@ public class Topic_03_WebBrowser_Element {
 		 if(isElementSelected(driver, ageElement)){
 		 System.out.println("'Under 18' radio button is selected");
 		 } else{
-		 System.out.println("'Under 18' radio button isn't selected");
+			 driver.findElement(By.xpath(ageElement)).click();
 		 }
 		 
 		 String interestElement = "//input[@id='development']";
 		 driver.findElement(By.xpath(interestElement)).click();
 		 Thread.sleep(2000);
 		 if(isElementSelected(driver, interestElement)){
-		 
+			 System.out.println("'Interest' radio button is selected");
 		 } else{
-		 System.out.println("'Under 18' radio button isn't selected");
+			 driver.findElement(By.xpath(interestElement)).click();
 		 }
 	}
 	public boolean isElementDisplayed(WebDriver driver, String yourLocator) {
