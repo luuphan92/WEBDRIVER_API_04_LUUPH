@@ -4,7 +4,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
-public class Check_Element {
+public class Topic_03_Check_Element {
 //	WebDriver driver;
 //	By mail = By.xpath("//input[@id='password']");
 //	By age = By.xpath("//input[@id='under_18' and @type='radio']");
@@ -24,6 +24,26 @@ public class Check_Element {
 		return element;
 	}
 	public static WebElement ageElement(WebDriver driver) {
+		element = driver.findElement(By.xpath("//input[@id='password']"));
+		return element;
+	}
+	public static WebElement eduElement(WebDriver driver) {
+		element = driver.findElement(By.xpath("//input[@id='development']"));
+		return element;
+	}
+	public static WebElement slideElement(WebDriver driver) {
+		element = driver.findElement(By.xpath("//input[@id='slider-1']"));
+		return element;
+	}
+	public static WebElement checkboxElement(WebDriver driver) {
+		element = driver.findElement(By.xpath("//select[@id='job1']"));
+		return element;
+	}
+	public static WebElement buttonElement(WebDriver driver) {
+		element = driver.findElement(By.xpath("//button[@id='button-enabled']"));
+		return element;
+	}
+	public static WebElement passElement(WebDriver driver) {
 		element = driver.findElement(By.xpath("//input[@id='password']"));
 		return element;
 	}

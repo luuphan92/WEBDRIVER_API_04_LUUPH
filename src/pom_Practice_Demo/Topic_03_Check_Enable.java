@@ -1,4 +1,4 @@
-package Test;
+package pom_Practice_Demo;
 
 import java.util.concurrent.TimeUnit;
 
@@ -9,10 +9,10 @@ import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
-import pageObjects.Check_Element;
+import pageObjects.Topic_03_Check_Element;
 
 
-public class Check_Enable {
+public class Topic_03_Check_Enable {
     WebDriver driver;
 //	private static WebElement element = null;
    
@@ -27,8 +27,15 @@ public class Check_Enable {
 		driver.get("http://daominhdam.890m.com");
   }
 	@Test
-	  public void f() {
-		   IsElementEnabled(Check_Element.mailElement(driver));
+	  public void Enable_Test() {
+		   IsElementEnabled(Topic_03_Check_Element.mailElement(driver));
+		   IsElementEnabled(Topic_03_Check_Element.ageElement(driver));
+		   IsElementEnabled(Topic_03_Check_Element.eduElement(driver));
+		   IsElementEnabled(Topic_03_Check_Element.slideElement(driver));
+		   IsElementEnabled(Topic_03_Check_Element.checkboxElement(driver));
+		   IsElementEnabled(Topic_03_Check_Element.buttonElement(driver));
+		   IsElementEnabled(Topic_03_Check_Element.passElement(driver));
+		   
 		  }
 
 	  @AfterTest
@@ -38,10 +45,10 @@ public class Check_Enable {
 	  
 	  public boolean IsElementEnabled (WebElement myElement){
 		 if(myElement.isEnabled()) {
-			 System.out.print("here is something special ");
+			 System.out.println("Element is enabled");
 			 return true;
 		 }else {
-			 System.out.println("there is nothing happen");
+			 System.out.println(" Element is disabled");
 			 return false;
 		 }
 		  
