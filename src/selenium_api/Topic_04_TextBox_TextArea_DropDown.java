@@ -49,7 +49,7 @@ public class Topic_04_TextBox_TextArea_DropDown {
 	
 	@Test
 	public void TC_01_DropdownCheck(){
-		//Step 1
+		//Step 1.
 		driver.get("http://daominhdam.890m.com/");
 		//Step 2
 		Select dropDown = new Select(driver.findElement(By.xpath("//select[@id='job1']")));
