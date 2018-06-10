@@ -65,7 +65,7 @@ public class Topic_05_ButtonRadoibuttonCheckboxAlert {
 		WebElement radioButton = driver.findElement(By.xpath("//label[text()='2.0 Petrol, 147kW']/preceding-sibling::input"));
 		clickElementByJavascript(radioButton);
 		Assert.assertTrue(radioButton.isSelected());
-		unCheckTheCheckBox(radioButton);
+		checkTheRadioButton(radioButton);
 	}
 	
 	@Test
@@ -114,6 +114,15 @@ public class Topic_05_ButtonRadoibuttonCheckboxAlert {
 			Assert.assertTrue(!element.isSelected());
 		}
 	}
+	
+	public void checkTheRadioButton(WebElement element) {
+		if(element.isSelected()) {
+		    JavascriptExecutor je = (JavascriptExecutor) driver;
+		    je.executeScript("arguments[0].click();", element);
+			Assert.assertTrue(element.isSelected());
+		}
+	}
+
 
 
 	@AfterClass
