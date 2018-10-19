@@ -20,9 +20,9 @@ public class Topic_03_WebBrowser_Element {
 		//Firefox <47
 		driver = new FirefoxDriver();
 		
-//		//Firefox >= 48
-//		System.setProperty("webdriver.Firefox.driver",".\\driver\\geckodriver.exe");
-//		driver = new FirefoxDriver();
+		//Firefox >= 48
+		System.setProperty("webdriver.Firefox.driver",".\\driver\\geckodriver.exe");
+		driver = new FirefoxDriver();
 		
 //		//Chrome
 //		System.setProperty("webdriver.chrome.driver",".\\driver\\chromedriver.exe" );
