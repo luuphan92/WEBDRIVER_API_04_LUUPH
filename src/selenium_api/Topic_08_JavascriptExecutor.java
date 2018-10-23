@@ -7,6 +7,7 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
@@ -14,11 +15,12 @@ import org.testng.annotations.Test;
 
 public class Topic_08_JavascriptExecutor {
 	WebDriver driver;
+	WebDriverWait wait;
 
 	@BeforeClass
 	public void beforeClass() {
 		// //Firefox <47
-//		 driver = new FirefoxDriver();
+		// driver = new FirefoxDriver();
 		//
 		// //Firefox >= 48
 		// System.setProperty("webdriver.Firefox.driver",".\\driver\\geckodriver.exe");
@@ -36,7 +38,7 @@ public class Topic_08_JavascriptExecutor {
 		driver.manage().window().maximize();
 	}
 
-	@Test
+	@Test(enabled = false)
 	public void TC_01() {
 		driver.get("http://live.guru99.com/");
 		String domain = (String) executeJSForBrowserElement("return document.domain;");
@@ -71,13 +73,25 @@ public class Topic_08_JavascriptExecutor {
 		executeJSForBrowserElement("window.location = '" + demoGuruSite + "'");
 		String domainDemoGuru = (String) executeJSForBrowserElement("return document.domain;");
 		Assert.assertEquals("demo.guru99.com", domainDemoGuru);
-		
+
 	}
 
 	@Test
-	public void TC_02() {
+	public void TC_02() throws Exception {
 		driver.get("https://www.w3schools.com/tags/tryit.asp?filename=tryhtml_input_disabled");
-		
+		WebElement iframeResult = driver.findElement(By.xpath("//iframe[@id='iframeResult']"));
+		driver.switchTo().frame(iframeResult);
+
+		WebElement lastNameTextbox = driver.findElement(By.xpath("//input[@name='lname']"));
+		removeAttributeInDOM(lastNameTextbox, "disabled");
+		lastNameTextbox.sendKeys("Automation");
+
+		WebElement submitBtn = driver.findElement(By.xpath("//input[@value='Submit']"));
+		submitBtn.click();
+		Thread.sleep(3000);
+		WebElement lastnameSuccess = driver.findElement(By.xpath("//div[contains(text(),'Automation')]"));
+		Assert.assertTrue(lastnameSuccess.isDisplayed());
+
 	}
 
 	public Object executeJSForBrowserElement(String javaSript) {
@@ -125,7 +139,7 @@ public class Topic_08_JavascriptExecutor {
 		}
 	}
 
-	 @AfterClass
+	@AfterClass
 	public void afterClass() {
 		driver.quit();
 	}
