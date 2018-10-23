@@ -1,5 +1,6 @@
 package selenium_api;
 
+import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.By;
@@ -7,7 +8,6 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
@@ -15,27 +15,18 @@ import org.testng.annotations.Test;
 
 public class Topic_08_JavascriptExecutor {
 	WebDriver driver;
-	WebDriverWait wait;
+	private String email;
 
 	@BeforeClass
 	public void beforeClass() {
-		// //Firefox <47
-		// driver = new FirefoxDriver();
-		//
-		// //Firefox >= 48
-		// System.setProperty("webdriver.Firefox.driver",".\\driver\\geckodriver.exe");
-		// driver = new FirefoxDriver();
-		//
 		// //Chrome
 		System.setProperty("webdriver.chrome.driver", ".\\driver\\chromedriver.exe");
 		driver = new ChromeDriver();
 
-		// //IE
-		// System.setProperty("webdriver.IE.driver",".\\driver\\IEDriverServer.exe");
-		// driver = new InternetExplorerDriver();
-
 		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 		driver.manage().window().maximize();
+		email = "automation" + randomNumber() + "@gmail.com";
+
 	}
 
 	@Test(enabled = false)
@@ -76,9 +67,10 @@ public class Topic_08_JavascriptExecutor {
 
 	}
 
-	@Test
+	@Test(enabled = false)
 	public void TC_02() throws Exception {
 		driver.get("https://www.w3schools.com/tags/tryit.asp?filename=tryhtml_input_disabled");
+		Thread.sleep(3000);
 		WebElement iframeResult = driver.findElement(By.xpath("//iframe[@id='iframeResult']"));
 		driver.switchTo().frame(iframeResult);
 
@@ -91,6 +83,42 @@ public class Topic_08_JavascriptExecutor {
 		Thread.sleep(3000);
 		WebElement lastnameSuccess = driver.findElement(By.xpath("//div[contains(text(),'Automation')]"));
 		Assert.assertTrue(lastnameSuccess.isDisplayed());
+
+	}
+
+	@Test
+	public void TC_03_CreatAnAcc() {
+		driver.get("http://live.guru99.com/");
+		WebElement myAccount = driver.findElement(By.xpath("//div[@class='footer']//a[text()='My Account']"));
+		clickByJSForWebElement(myAccount);
+
+		WebElement creatAccBtn = driver.findElement(By.xpath("//span[text()='Create an Account']"));
+		clickByJSForWebElement(creatAccBtn);
+
+		WebElement firstNameTextbox = driver.findElement(By.xpath("//input[@id='firstname']"));
+		sendkeyToElementByJS(firstNameTextbox, "phan");
+
+		WebElement midleNameTextbox = driver.findElement(By.xpath("//input[@class='input-text ']"));
+		sendkeyToElementByJS(midleNameTextbox, "hoang");
+
+		WebElement lastNameTextbox = driver.findElement(By.xpath("//input[@id='lastname']"));
+		sendkeyToElementByJS(lastNameTextbox, "luu");
+
+		WebElement emailTextbox = driver.findElement(By.xpath("//input[@id='email_address']"));
+		sendkeyToElementByJS(emailTextbox, email);
+
+		WebElement passwordTextbox = driver.findElement(By.xpath("//input[@id='password']"));
+		sendkeyToElementByJS(passwordTextbox, "123456");
+
+		WebElement repasswordTextbox = driver.findElement(By.xpath("//input[@id='confirmation']"));
+		sendkeyToElementByJS(repasswordTextbox, "123456");
+
+		WebElement submitBtn = driver.findElement(By.xpath("//button[@title='Register']"));
+		clickByJSForWebElement(submitBtn);
+
+		executeJSForBrowserElement("return document.documentElement.innerText;");
+		String thanksText = (String) executeJSForBrowserElement("return document.documentElement.innerText;");
+		Assert.assertTrue(thanksText.contains("Thank you for registering with Main Website Store."));
 
 	}
 
@@ -137,6 +165,22 @@ public class Topic_08_JavascriptExecutor {
 			e.getMessage();
 			return null;
 		}
+	}
+
+	public Object sendkeyToElementByJS(WebElement element, String value) {
+		try {
+			JavascriptExecutor js = (JavascriptExecutor) driver;
+			return js.executeScript("arguments[0].setAttribute('value', '" + value + "')", element);
+		} catch (Exception e) {
+			e.getMessage();
+			return null;
+		}
+	}
+
+	public int randomNumber() {
+		Random random = new Random();
+		int number = random.nextInt(999999);
+		return number;
 	}
 
 	@AfterClass
